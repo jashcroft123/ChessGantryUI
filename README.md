@@ -11,4 +11,4 @@ I chose to take this as an oppotunity use C# to develop a front end to interact 
 This front end displays a 3D model of a chess board complete with piece. Starting with White a piece is selected and legal moves are shown. Upon selecting a legal square the move commands are sent to the realtime system to move the gantry and complete the move. Then it is blacks turn to move.
 
 ## Acknowledgments
-3D Visual chess board and gantry [Helix Toolkit] (https://github.com/helix-toolkit/helix-toolkit/wiki)
+3D Visual chess board and gantry [Helix Toolkit](https://github.com/helix-toolkit/helix-toolkit/wiki)
