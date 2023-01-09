@@ -1,0 +1,21 @@
+﻿<MSL:MslApplication x:Class="RESTHandler.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:RESTHandler"
+             xmlns:MSL="MslAll">
+
+    <Application.Resources>
+        <ResourceDictionary>
+
+            <Style TargetType="{x:Type Label}" BasedOn="{StaticResource MslLabel}"/>
+
+
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MSL.UI.Wpf;Component/Styles/MslStyles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+
+
+        </ResourceDictionary>
+    </Application.Resources>
+
+</MSL:MslApplication>

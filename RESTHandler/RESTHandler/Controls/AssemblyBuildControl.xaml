@@ -1,0 +1,140 @@
+﻿<UserControl x:Class="RMP400S_SG_Placement.Controls.AssemblyBuildControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:RMP400S_SG_Placement.Controls"
+             xmlns:cvrt="clr-namespace:MSL.UI.Wpf.Converters;assembly=MSL.UI.Wpf"
+             xmlns:cntrl="clr-namespace:MSL.Process.Wpf.UI;assembly=MSL.Process.Wpf"
+             mc:Ignorable="d" 
+             d:DesignHeight="160" d:DesignWidth="210">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MSL.UI.Wpf;Component/Styles/MslStyles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+
+            <ControlTemplate x:Key="ButtonToggleButton" TargetType="{x:Type ToggleButton}">
+                <Grid ClipToBounds="True">
+                    <Border
+                      x:Name="Border" 
+                      CornerRadius="3"
+                      Background="Transparent"
+                      BorderBrush="White"
+                      BorderThickness="1"
+                      Cursor="Hand"/>
+                    <TextBlock
+                      x:Name="Label"
+                      Width="Auto"
+                      VerticalAlignment="Top"
+                      HorizontalAlignment="Center"
+                      Focusable="False" 
+                      Background="{x:Null}"
+                      Foreground="DarkOrange"
+                      FontSize="30"
+                      Margin="0"
+                      Cursor="Hand">
+                        <Run Text ="{Binding Serial.Value, FallbackValue='[Assembly ID]'}"/>
+                    </TextBlock>
+                    <Image
+                      Margin="4,0,4,0"
+                      Cursor="Hand"
+                      MaxHeight="100"                        
+                      Source="{Binding DefiningComponent.GetDefinition.GroupIcon}" >
+                        <Image.RenderTransform>
+                            <RotateTransform Angle="90" CenterX="37" CenterY="53"/>
+                        </Image.RenderTransform>
+                    </Image>
+                    <TextBlock
+                      x:Name="Job"
+                      Width="Auto"
+                      VerticalAlignment="Bottom"
+                      HorizontalAlignment="Center"
+                      Focusable="False" 
+                      Background="{x:Null}"
+                      Foreground="Gray"
+                      FontSize="15"
+                      Margin="0,0,0,30"
+                      Cursor="Hand">
+                        <Run Text ="{Binding JobNumber, FallbackValue='[Job Number]'}"/>
+                    </TextBlock>
+                    <Grid Margin="2" ClipToBounds="True">
+                        <cntrl:OperatorControl x:Name="OPField" User="{Binding Operator}" WaitBeforeLoadms="0" Height="30" Width="30" Margin="0,0,-50,5" Cursor="Hand" VerticalAlignment="Bottom" HorizontalAlignment="Right"/>
+                    </Grid>
+                    <!--<TextBlock
+                      x:Name="Label1"
+                      Width="Auto"
+                      VerticalAlignment="Bottom"
+                      HorizontalAlignment="Center"
+                      Focusable="False" 
+                      Background="{x:Null}"
+                      Foreground="DarkOrange"
+                      FontSize="25"
+                      Margin="0,0,0,5"
+                      Cursor="Hand">
+                        <Run Text ="{Binding DefiningComponent.Serial.Value, FallbackValue='[Serial]'}"/>
+                    </TextBlock>-->
+                </Grid>
+                <ControlTemplate.Triggers>
+                    <Trigger Property="IsPressed" Value="true">
+                        <Setter TargetName="Border" Property="BorderBrush" Value="White"/>
+                        <Setter TargetName="Border" Property="BorderThickness" Value="2"/>
+                    </Trigger>
+                    <Trigger Property="IsChecked" Value="true">
+                        <Setter TargetName="Border" Property="BorderBrush" Value="DarkOrange"/>
+                        <Setter TargetName="Border" Property="BorderThickness" Value="2"/>
+                    </Trigger>
+                    <Trigger Property="Button.IsMouseOver" Value="true">
+                        <Setter TargetName="Label" Property="Foreground" Value="White"/>
+                        <!--<Setter TargetName="Label1" Property="Foreground" Value="White"/>-->
+                        <Trigger.EnterActions>
+                            <BeginStoryboard>
+                                <Storyboard Storyboard.TargetName="OPField" Storyboard.TargetProperty="Margin">
+                                    <ThicknessAnimation To="0,0,10,5" Duration="0:0:0.15"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </Trigger.EnterActions>
+                        <Trigger.ExitActions>
+                            <BeginStoryboard>
+                                <Storyboard Storyboard.TargetName="OPField" Storyboard.TargetProperty="Margin">
+                                    <ThicknessAnimation To="0,0,-50,5" Duration="0:0:0.15" BeginTime="0:0:1"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </Trigger.ExitActions>
+                    </Trigger>
+                </ControlTemplate.Triggers>
+            </ControlTemplate>
+
+            <Style x:Key="{x:Type Button}" TargetType="{x:Type Button}">
+                <Setter Property="SnapsToDevicePixels" Value="true"/>
+                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="OverridesDefaultStyle" Value="true"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Grid>
+                                <ToggleButton 
+                                x:Name="Button"
+                                Template="{StaticResource ButtonToggleButton}"
+                                ClickMode="Release"
+                                Focusable="false"
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Stretch"
+                                VerticalContentAlignment="Center"
+                                HorizontalContentAlignment="Center"
+                                Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}, Path=DataContext.QueryJobAndEmpSkills}"
+                                CommandParameter="{Binding }"
+                                IsChecked="{Binding IsCurrentAssembly}">
+                                </ToggleButton>
+                            </Grid>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    
+    <Grid>
+        <Button Width="175" Height="150" Margin="0,5,5,0" />
+    </Grid>
+</UserControl>
