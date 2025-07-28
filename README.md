@@ -1,3 +1,6 @@
+# IMPORTANT
+This was stopped due to a lack of sign off at work
+
 # ChessGantryUI
 An attempt to make a chess playing robot. Using  C# WPF front end interactive with an NI MyRIO
 
